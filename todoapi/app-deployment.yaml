@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-rest
+  labels:
+    app: todo-rest
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: todo-rest
+  template:
+    metadata:
+      labels:
+        app: todo-rest
+    spec:
+      containers:
+        - name: todo-rest-container
+          imagePullPolicy: Always
+          image: endofcake/go-todo-rest-api-example:latest
+          ports:
+          - containerPort: 3000
+          env:
+            - name: PGHOST
+              value: postgresdb
+            - name: PGDATABASE
+              value: postgres
+            - name: PGUSER
+              value: postgres
+            - name: PGPASSWORD
+              value: postgres
+            - name: PGSSLMODE
+              value: 'disable'
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1024Mi
