@@ -1,5 +1,5 @@
 resources:
-  - db-deployment.yaml
+  - db-statefulset.yaml
   - db-service.yaml
   - app-deployment.yaml
   - app-service.yaml

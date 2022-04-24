@@ -1,17 +1,28 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: postgresdb
   labels:
     app: db
 spec:
+  serviceName: db-service
+  replicas: 1
   selector:
     matchLabels:
-      app: db
+      app: db-sts
+  volumeClaimTemplates:
+  - metadata:
+      name: db-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "hostpath"
+      resources:
+        requests:
+          storage: 8Gi
   template:
     metadata:
       labels:
-        app: db
+        app: db-sts
     spec:
       containers:
         - name: postgresdb
@@ -19,6 +30,10 @@ spec:
           image: postgres:11.15
           ports:
           - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: db-pvc
+              subPath: data
           env:
             - name: POSTGRES_DB
               value: "postgres"

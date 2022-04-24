@@ -3,4 +3,4 @@ apiVersion: v1
 metadata:
   name: todoapi
   labels:
-    name: todo-api
+    name: todoapi

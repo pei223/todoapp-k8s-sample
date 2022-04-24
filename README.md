@@ -4,14 +4,20 @@ k8sの勉強用
 
 ## やりたいこと
 - namespace
-- DBのデータ永続化
 - HPA
 - ingress
+- secrets
 
 
-## apply
+## apply/delete
 ```
-kubectl apply -k todoapi -l app=postgresdb
+kubectl apply -k todoapi
+kubectl delete -k todoapi
+```
+
+## PVC削除
+```
+kubectl delete pvc db-pvc-postgresdb-0 
 ```
 
 ## Pod/Service表示
@@ -37,6 +43,10 @@ kubectl describe po <pod名>
 kubectl describe svc <service名>
 ```
 
+
+## 使ってるdocker image
+- https://hub.docker.com/r/endofcake/go-todo-rest-api-example
+- https://github.com/endofcake/go-todo-rest-api-example
 
 ## クラスター内へのDB接続はどうやるか
 - hostはService名で解決できる
