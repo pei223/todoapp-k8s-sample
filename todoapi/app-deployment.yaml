@@ -24,11 +24,20 @@ spec:
             - name: PGHOST
               value: db-service
             - name: PGDATABASE
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: db-credential
+                  key: db
             - name: PGUSER
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: db-credential
+                  key: username
             - name: PGPASSWORD
-              value: postgres
+              valueFrom:
+                secretKeyRef:
+                  name: db-credential
+                  key: password
             - name: PGSSLMODE
               value: 'disable'
           resources:

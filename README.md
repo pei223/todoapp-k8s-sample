@@ -6,7 +6,7 @@ k8sの勉強用
 - namespace
 - HPA
 - ingress
-- secrets
+- kustomization
 
 
 ## apply/delete
@@ -56,3 +56,9 @@ kubectl describe svc <service名>
 ## labelsの使い道
 - apply/deleteで-lオプション使って一部だけ適用などできる
 - get poなどで-lでラベル使って検索できる
+
+
+## パブリッククラウドに対応するには
+- ingress controller周り
+- StatefulSetのDBは不要、RDSとかにする
+- 

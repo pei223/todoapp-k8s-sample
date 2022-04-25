@@ -1,4 +1,5 @@
 resources:
+  - db-secrets.yaml
   - db-statefulset.yaml
   - db-service.yaml
   - app-deployment.yaml

@@ -36,11 +36,20 @@ spec:
               subPath: data
           env:
             - name: POSTGRES_DB
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: db-credential
+                  key: db
             - name: POSTGRES_USER
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: db-credential
+                  key: username
             - name: POSTGRES_PASSWORD
-              value: "postgres"
+              valueFrom:
+                secretKeyRef:
+                  name: db-credential
+                  key: password
           resources:
             requests:
               cpu: 100m
