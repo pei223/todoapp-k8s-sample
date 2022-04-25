@@ -1,17 +1,43 @@
 # kubenetesでTODOアプリをクラスター内のDBに接続して動かしてみる
 k8sの勉強用
 
-
 ## やりたいこと
 - namespace
 - HPA
-- ingress
 - kustomization
+- 簡易的にSSL/TLS
+
+## 環境
+Docker Destktop kubernetesを使用
+
+単一ノード構成
 
 
-## apply/delete
+## Setup
+ingress controllerをインストール
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/cloud/deploy.yaml
+```
+
+hostsに以下の記述を追加
+```
+127.0.0.1 example.com
+```
+
+## apply
+
 ```
 kubectl apply -k todoapi
+
+# データ追加
+curl -d '{"title":"sample project1"}' -H "Content-Type: application/json" -X POST http://localhost:3333/projects
+
+# 以下のURLにアクセス
+example.com/projects
+```
+
+## delete
+```
 kubectl delete -k todoapi
 ```
 
@@ -22,11 +48,19 @@ kubectl delete pvc db-pvc-postgresdb-0
 
 ## Pod/Service表示
 ```
-# 全部表示
+# pods
 kubectl get po
+# service
 kubectl get svc
+# persistent volume claim
+kubectl get pvc
+# statefulset
+kubectl get sts
 
-# label検索表示
+# -wで監視
+kubectl get po -w
+
+# label検索
 kubectl get po -l app=<labels/>appの値>
 kubectl get svc -l app=<labels/>appの値>
 ```
@@ -41,6 +75,8 @@ kubectl logs <pod id>
 ```
 kubectl describe po <pod名>
 kubectl describe svc <service名>
+kubectl describe sts <statefulset名>
+kubectl describe pvc <PersistentVolumeClaim名>
 ```
 
 
