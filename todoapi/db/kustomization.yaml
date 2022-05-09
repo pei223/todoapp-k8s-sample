@@ -1,0 +1,3 @@
+resources:
+  - db-service.yaml
+  - db-statefulset.yaml

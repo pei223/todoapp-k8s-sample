@@ -6,6 +6,8 @@ k8sの勉強用
 - HPA
 - kustomization
 - 簡易的にSSL/TLS
+- rback
+- network policy
 
 ## 環境
 Docker Destktop kubernetesを使用
