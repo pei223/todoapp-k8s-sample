@@ -3,7 +3,6 @@ k8sの勉強用
 
 ## やりたいこと
 - namespace
-- HPA
 - kustomization
 - 簡易的にSSL/TLS
 - rback
@@ -16,11 +15,24 @@ Docker Destktop kubernetesを使用
 
 
 ## Setup
-ingress controllerをインストール
+### ingress controllerをインストール
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/cloud/deploy.yaml
 ```
 
+### metrics-serverをインストール
+HPAのメトリクス取得に必要
+```
+// ここのcomponents.yamlをダウンロード
+https://github.com/kubernetes-sigs/metrics-server/releases
+
+kubectl apply -f components.yaml
+
+// この対応も必要ぽい
+https://blog.mechill.jp/tech/210520_k8s-metrix-server/
+```
+
+### hosts設定
 hostsに以下の記述を追加
 ```
 127.0.0.1 example.com
